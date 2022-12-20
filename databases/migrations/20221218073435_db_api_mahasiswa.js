@@ -7,6 +7,7 @@ exports.up = function(knex) {
     t.increments("id");
     t.integer("nim").notNullable();
     t.string("name").notNullable();
+    t.string("password").notNullable();
     t.string("no_hp").notNullable();
     t.text("address").notNullable();
     t.string("prodi").notNullable();

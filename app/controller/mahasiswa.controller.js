@@ -3,17 +3,19 @@ const multer = require("multer");
 const createMahasiswa = require("../validation/mahasiswa")
 const { Api404Error, Api422Error, Api400Error} = require("../middlewares/errors/ApiErrors");
 const upload = require("../helpers/multer")("mahasiswa").single("avatar")
+const bcrypt = require("bcrypt")
 module.exports = class mahasiswaController {
   static async create(req, res, next) {
     try {
   
-      const { nim, name, no_hp, address, prodi } = req.body;
+      const { nim, name, password, no_hp, address, prodi } = req.body;
 
             // insert data to db
             await db("mahasiswa")
                 .insert({
                     nim,
                     name,
+                    password: bcrypt.hashSync(password, 10),
                     no_hp,
                     address,
                     prodi
